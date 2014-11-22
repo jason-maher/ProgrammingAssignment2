@@ -15,6 +15,8 @@
 #' It is not recommended to call `setInverse()` directly but rather to use `cacheSolve()`
 #' instead. See `makeCacheMatrix` and `cacheSolve` for more detail on their operation.
 
+#' NOTE: Tests for these functions are available in the tests/test_cachematrix.R file
+
 #' Creates a new cacheMatrix object with the properties described above. Initial data
 #' can be specified for the new matrix or a default empty one will be created.
 #'
