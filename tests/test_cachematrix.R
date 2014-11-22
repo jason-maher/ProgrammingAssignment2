@@ -20,6 +20,25 @@ test.makeCacheMatrix.containsInputData <- function() {
     checkIdentical(input, cm$get())
 }
 
+#' check that `setInverse()` does cache the value when called directly
+test.cacheMatrix.canSetInverse <- function() {
+    fake <- create.sampleMatrix()
+    cm <- makeCacheMatrix()
+    cm$setInverse(fake)
+    checkEquals(fake, cm$getInverse())
+}
+
+#' check that setting new data to the matrix wipes the cache so that we don't get
+#' old results.
+test.cacheMatrix.newDataInvalidatesCache <- function() {
+    fake <- create.sampleMatrix()
+    cm <- makeCacheMatrix()
+    cm$setInverse(fake)
+    checkEquals(fake, cm$getInverse())
+    cm$set(create.sampleMatrix())
+    checkTrue(identical(cm$getInverse(), NULL))
+}
+
 #' check that `cacheSolve()` actually does solve correctly
 test.cacheSolve.calculatesInverse <- function() {
     sample <- create.sampleMatrix()
@@ -37,16 +56,4 @@ test.cacheSolve.cachesInverse <- function() {
     checkEquals(sample.inverse, cm$getInverse())
     # TODO: It would be nice to somehow verify that further invocations of cacheSolve
     #       don't recalculate the inverse, not just verify that the result was saved
-}
-
-#' check that setting new data to the matrix wipes the cache so that we don't get
-#' old results.
-test.cacheMatrix.newDataInvalidatesCache <- function() {
-    sample <- create.sampleMatrix()
-    sample.inverse = solve(sample)
-    cm <- makeCacheMatrix(sample)
-    checkEquals(sample.inverse, cacheSolve(cm))
-    checkEquals(sample.inverse, cm$getInverse())
-    cm$set(create.sampleMatrix())
-    checkTrue(cm$getInverse() == NULL)
 }
