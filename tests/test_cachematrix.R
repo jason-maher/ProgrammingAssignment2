@@ -10,7 +10,7 @@ create.sampleMatrix <- function(size = 5) {
 
 #' check the function is doing something
 test.makeCacheMatrix.returnsSomething <- function() {
-    checkTrue(makeCacheMatrix() != NULL)
+    checkEquals(FALSE, identical(makeCacheMatrix(), NULL))
 }
 
 #' check the data contained in the function matches the input args
