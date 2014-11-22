@@ -10,7 +10,7 @@ create.sampleMatrix <- function(size = 5) {
 
 #' check the function is doing something
 test.makeCacheMatrix.returnsSomething <- function() {
-    checkEquals(FALSE, identical(makeCacheMatrix(), NULL))
+    checkEquals(FALSE, is.null(makeCacheMatrix()))
 }
 
 #' check the data contained in the function matches the input args
@@ -36,7 +36,7 @@ test.cacheMatrix.newDataInvalidatesCache <- function() {
     cm$setInverse(fake)
     checkEquals(fake, cm$getInverse())
     cm$set(create.sampleMatrix())
-    checkTrue(identical(cm$getInverse(), NULL))
+    checkTrue(is.null(cm$getInverse()))
 }
 
 #' check that `cacheSolve()` actually does solve correctly
